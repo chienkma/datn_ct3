@@ -1,0 +1,27 @@
+{% extends "_base.html" %} {% block content %}
+<div class="bg-gray-200">
+  <h2 class="bg-red-400 w-full items-center rounded-md p-1 mb-3 text-xl">
+    TIN MỚI NHẤT
+  </h2>
+  <div class="">
+    <ul>
+      {% for news in news_list %}
+      <div class="">
+        <li>
+          <img
+            src="{{ news.image_url}}"
+            alt="{{ news.title }}"
+            width="200"
+            height="200"
+          />
+          <h3>
+            <a href="{% url 'news_detail' news.id %}">{{ news.title }}</a>
+          </h3>
+        </li>
+      </div>
+
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock content %}

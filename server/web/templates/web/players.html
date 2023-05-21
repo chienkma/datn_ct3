@@ -1,0 +1,35 @@
+{% extends "_base.html" %} {% block content %}
+<div class="">
+  <div class="bg-blue-400 py-2">
+    <h1 class="ml-5 font-semibold text-xl">
+      Danh sách cầu thủ: {{ players_data.0.statistics.0.league.name }}
+    </h1>
+  </div>
+  <div class="grid grid-cols-4 gap-4 mt-2 mb-10">
+    {% for player in players_data %}
+    <div class="text-center bg-white p-4 shadow-md rounded-2xl mx-4">
+      <div class="mt-2 flex justify-center items-center">
+        <img
+          class="w-32 h-32 object-cover rounded-full shadow-lg"
+          src="{{ player.player.photo }}"
+          alt="{{ player.player.photo }}"
+        />
+      </div>
+      <p class="mb-1">Tên: {{ player.player.name }}</p>
+      <p class="mb-1">Vị trí: {{ player.statistics.0.games.position }}</p>
+      <p class="mb-1">Sinh nhật: {{ player.player.birth.date }}</p>
+      <div class="flex items-center justify-center mt-2">
+        <img
+          class="w-8 h-8 mr-2"
+          src="{{ player.statistics.0.team.logo }}"
+          alt="{{ player.statistics.0.team.name }} Logo"
+        />
+        <h2 class="text-lg font-semibold">
+          {{ player.statistics.0.team.name }}
+        </h2>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

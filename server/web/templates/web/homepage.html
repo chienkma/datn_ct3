@@ -1,0 +1,280 @@
+{% extends '_base.html'%} {% block content %} {% include 'carousel.html' %}
+<div class="grid grid-cols-4 gap-x-4 gap-y-7 mt-5">
+  <div class="col-span-2 ">
+    <div
+      class="bg-red-400 rounded-md mb-3 p-1 w-full"
+    >
+      <button
+        id="dropdownNavbarLink2"
+        data-dropdown-toggle="dropdownNavbar2"
+        class="flex justify-center items-center bg-gra-400 pl-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+      >
+        GIẢI ĐẤU
+        <svg
+          class="w-5 h-5 ml-1"
+          aria-hidden="true"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+      <!-- Dropdown menu -->
+      <div
+        id="dropdownNavbar2"
+        class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+      >
+        <ul
+          class="py-2 text-sm text-gray-700 dark:text-gray-400"
+          aria-labelledby="dropdownLargeButton"
+        >
+          <li>
+            <a
+              href="/39"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Premier League</a
+            >
+          </li>
+          <li>
+            <a
+              href="/135"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Serie A</a
+            >
+          </li>
+          <li>
+            <a
+              href="/78"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Bundesliga</a
+            >
+          </li>
+          <li>
+            <a
+              href="/140"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >La Liga</a
+            >
+          </li>
+          <li>
+            <a
+              href="/61"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Ligue 1</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <table class="bg-gray-100">
+        <thead class="bg-red-100">
+          <tr class="text-center gap-x-8">
+            <th class="px-3 py-1">Vị Trí</th>
+            <th class="px-3 py-2">Câu Lạc Bộ</th>
+            <th class="px-3 py-2">ĐĐ</th>
+            <th class="px-3 py-2">Thắng</th>
+            <th class="px-3 py-2">Hoà</th>
+            <th class="px-3 py-2">Thua</th>
+            <th class="px-3 py-2">SBT</th>
+            <th class="px-3 py-2">SBT</th>
+            <th class="px-3 py-2">Điểm</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for team in standings %}
+          <tr class="text-center">
+            <td>{{ team.rank }}</td>
+            <td class="flex gap-2 items-center" style="max-width: 200px">
+              <img
+                src="{{ team.team.logo }}"
+                alt="{{ team.team.name }}"
+                width="20"
+                height="20"
+                style="vertical-align: middle"
+              />
+              <span
+                style="
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                "
+                >{{ team.team.name }}</span
+              >
+            </td>
+            <td>{{ team.all.played }}</td>
+            <td>{{ team.all.win }}</td>
+            <td>{{ team.all.draw }}</td>
+            <td>{{ team.all.lose }}</td>
+            <td>{{ team.all.goals.for }}</td>
+            <td>{{ team.all.goals.against }}</td>
+            <td>{{ team.points }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- ... -->
+  <div
+    class="col-span-2 bg-gray-200  overflow-y-auto max-h-[600px] overflow-hidden"
+  >
+    <h2
+      class="sticky top-0  bg-red-400 w-full items-center rounded-md p-1 mb-3 text-xl"
+    >
+      TIN MỚI NHẤT
+    </h2>
+    <div class="">
+      <ul>
+        {% for news in news_list %}
+        <div class="">
+          <li>
+            <img
+              src="{{ news.image_url}}"
+              alt="{{ news.title }}"
+              width="200"
+              height="200"
+            />
+            <h3>
+              <a href="{% url 'news_detail' news.id %}">{{ news.title }}</a>
+            </h3>
+          </li>
+        </div>
+
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-span-2 overflow-y-auto max-h-[600px] mx-auto w-full">
+    {% if topscorers %}
+    <h2
+      class="sticky top-0 bg-red-400 w-full items-center rounded-md p-1 mb-3 text-xl"
+    >
+      DANH SÁCH VUA PHÁ LƯỚI
+    </h2>
+    <table class="table-fixed">
+      <thead>
+        <tr>
+          <th class="px-4 py-2">Vận động viên</th>
+          <th class="px-4 py-2">Tuổi</th>
+          <th class="px-4 py-2">Quốc gia</th>
+          <th class="px-4 py-2">Số bàn thắng</th>
+          <th class="px-4 py-2">Số kiến tạo</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for topscorer in topscorers %}
+        <tr class="text-center">
+          <td class="border-b px-4 py-2">
+            <div class="flex items-center">
+              <img
+                src="{{ topscorer.player.photo }}"
+                alt="{{ topscorer.player.name }} Avatar"
+                class="rounded-full w-8 h-8 mr-2"
+              />
+              <div>
+                <p class="font-bold">{{ topscorer.player.name }}</p>
+                <div class="flex items-center">
+                  <img
+                    src="{{ topscorer.statistics.0.team.logo }}"
+                    alt="{{ topscorer.statistics.0.team.name }} Logo"
+                    class="w-6 h-6 mr-1"
+                  />
+                  <p>{{ topscorer.statistics.0.team.name }}</p>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="border-b px-4 py-2">{{ topscorer.player.age }}</td>
+          <td class="border-b px-4 py-2">{{ topscorer.player.nationality }}</td>
+          <td class="border-b px-4 py-2">
+            {{ topscorer.statistics.0.goals.total }}
+          </td>
+          <td class="border-b px-4 py-2">
+            {{ topscorer.statistics.0.goals.assists }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No top scorers available.</p>
+    {% endif %}
+  </div>
+  <div class="col-span-2 overflow-y-auto max-h-[600px] mx-auto w-full mb-40">
+    <h2 class="sticky top-0 bg-red-400  font-medium  z-20 w-full items-center rounded-md p-1 mb-3 ">
+      TRỰC TIẾP
+    </h2>
+    <table class="w-full">
+      <thead>
+        <tr>
+          <th class="py-2">Giải đấu</th>
+          <th class="py-2">Trận đấu</th>
+          <th class="py-2">Số phút</th>
+          <th class="py-2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for fixture in fixtures %}
+        <tr>
+          <td class="py-2 flex items-center justify-center">
+            <img
+              src="{{ fixture.league.logo }}"
+              alt="{{ fixture.league.name }}"
+              class="w-8 h-8 mr-2"
+            />
+            {{ fixture.league.name }}
+          </td>
+          <td class="py-2">
+            <div class="flex items-center">
+              <img
+                src="{{ fixture.teams.home.logo }}"
+                alt="{{ fixture.teams.home.name }}"
+                class="w-5 h-5 mr-2"
+              />
+              <span class="mr-2">{{ fixture.teams.home.name }}</span>
+              <span class="ml-auto">{{ fixture.goals.home }}</span>
+            </div>
+            <div class="flex items-center mt-2">
+              <img
+                src="{{ fixture.teams.away.logo }}"
+                alt="{{ fixture.teams.away.name }}"
+                class="w-5 h-5 mr-2"
+              />
+              <span class="mr-2">{{ fixture.teams.away.name }}</span>
+              <span class="ml-auto">{{ fixture.goals.away }}</span>
+            </div>
+          </td>
+
+          <td class="py-2 text-center">
+            {{ fixture.fixture.status.elapsed }}'
+          </td>
+          <td class="py-2">
+            <a href="/predict/{{ fixture.fixture.id }}"
+              ><button
+                class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
+              >
+                <span
+                  class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
+                >
+                  Dự đoán
+                </span>
+              </button></a
+            >
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td class="py-2 text-center" colspan="3">Hiện không có trận đấu nào được diễn ra</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

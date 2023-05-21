@@ -1,0 +1,61 @@
+
+.predict-div .label-predict {
+    left: 0 !important;
+}
+
+.predict-div #predictionForm table tr td:nth-child(1) {
+    border-right: 0.5px rgba(0, 0, 0, 0.2) solid !important;
+    padding-right: 20px !important;
+}
+
+.predict-div #predictionForm table tr td:nth-child(2) {
+    border-left: 0.5px rgba(0, 0, 0, 0.2) solid !important;
+    padding-left: 20px !important;
+}
+
+.predict-div #predictionForm table tr {
+    border-bottom: 0 !important;
+}
+
+.predict-div #predictionForm .input-field {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.predict-div #predictionForm .input-field input[type=range]{
+  margin-top: 24px !important;
+}
+
+.predict-div .btn {
+    background-color: black;
+    color: yellow !important;
+}
+
+.predict-div .btn:hover {
+    background-color: #333 !important;
+}
+
+.predict-div .prob-container {
+    height: 100% !important;
+    padding: 0 !important;
+}
+
+.predict-div .prob-container .prob-title {
+    color: white !important;
+    line-height: 36px !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.predict-div .prob-container .prob-value {
+    color: white !important;
+    font-size: 24px !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.predict-div #toast-container {
+  left: auto !important;
+  right: 20px !important;
+  top: 10px !important;
+}
