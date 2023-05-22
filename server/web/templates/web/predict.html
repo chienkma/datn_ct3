@@ -51,7 +51,7 @@
         <tr>
           <td class="w-1/2 p-4">
             <div class="flex flex-col">
-              <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="homeGoals">Bàn thắng: <span>{{ home_goals|default:0 }}</span></label>
+              <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="homeGoals">Bàn thắng: <span id="homeGoalsValue">{{ home_goals|default:0 }}</span></label>
               <br />
               <input class="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                 id="homeGoals"
@@ -60,12 +60,13 @@
                 min="0"
                 max="10"
                 value="{{ home_goals|default:0 }}"
+                oninput="updateHomeGoalsValue(this.value)"
               />
             </div>
           </td>
           <td class="w-1/2 p-4">
             <div class="flex flex-col">
-              <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="homeGoals">Bàn thắng: <span>{{ away_goals|default:0 }}</span></label>
+              <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="homeGoals">Bàn thắng: <span id="awayGoalsValue">{{ away_goals|default:0 }}</span></label>
               <br />
               <input class="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                 id="awayGoals"
@@ -74,6 +75,7 @@
                 min="0"
                 max="10"
                 value="{{ away_goals|default:0 }}"
+                oninput="updateAwayGoalsValue(this.value)"
               />
             </div>
           </td>
@@ -82,7 +84,7 @@
         <tr>
           <td class="w-1/2 p-4">
             <div class="flex flex-col">
-              <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="homeShots">Số cú sút: <span>0</span></label>
+              <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="homeShots">Số cú sút: <span id="homeShotsValue" >0</span></label>
               <br />
               <input class="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                 id="homeShots"
@@ -91,6 +93,7 @@
                 min="0"
                 max="50"
                 value="0"
+                oninput="updateHomeShotsValue(this.value)"
               />
             </div>
           </td>
@@ -117,7 +120,7 @@
           <td class="w-1/2 p-4">
             <div class="flex flex-col">
               <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="homeShotsOnTarget"
-                >Sút trúng đích: <span>0</span></label
+                >Sút trúng đích: <span id="homeShotOnTargetsValue">0</span></label
               >
               <br />
               <input class="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
@@ -127,13 +130,14 @@
                 min="0"
                 max="50"
                 value="0"
+                oninput="updateHomeShotOnTargetValue(this.value)"
               />
             </div>
           </td>
           <td class="w-1/2 p-4">
             <div class="flex flex-col">
               <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="awayShotsOnTarget"
-                >Sút trúng đích: <span>0</span></label
+                >Sút trúng đích: <span id="awayShotOnTargetValue">0</span></label
               >
               <br />
               <input class="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
@@ -143,6 +147,7 @@
                 min="0"
                 max="50"
                 value="0"
+                oninput="updateAwayShotOnTargetValue(this.value)"
               />
             </div>
           </td>
@@ -151,7 +156,7 @@
         <tr>
           <td class="w-1/2 p-4">
             <div class="flex flex-col">
-              <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="homeRedCards">Số thẻ đỏ: <span>0</span></label>
+              <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="homeRedCards">Số thẻ đỏ: <span id="homeRedCardValue">0</span></label>
               <br />
               <input class="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                 id="homeRedCards"
@@ -160,12 +165,13 @@
                 min="0"
                 max="11"
                 value="0"
+                oninput="updateHomeRedCardValue(this.value)"
               />
             </div>
           </td>
           <td class="w-1/2 p-4">
             <div class="flex flex-col">
-              <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="awayRedCards">Số thẻ đỏ: <span>0</span></label>
+              <label class="label-predict block mb-2  text-[12px] text-[#9e9e9e] dark:text-white" for="awayRedCards">Số thẻ đỏ: <span id="awayRedCardValue">0</span></label>
               <br />
               <input class="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                 id="awayRedCards"
@@ -174,6 +180,7 @@
                 min="0"
                 max="11"
                 value="0"
+                oninput="updateAwayRedCardValue(this.value)"
               />
             </div>
           </td>
@@ -303,6 +310,22 @@
 <script>
   function updateAwayShotsValue(value) {
     document.getElementById('awayShotsValue').textContent = value;
+  }
+  function updateHomeShotsValue(value) {
+    document.getElementById('homeShotsValue').textContent = value;
+  }
+  function updateHomeShotOnTargetValue(value) {
+    document.getElementById('homeShotOnTargetsValue').textContent = value;
+  }function updateAwayShotOnTargetValue(value) {
+    document.getElementById('awayShotOnTargetValue').textContent = value;
+  }function updateHomeRedCardValue(value) {
+    document.getElementById('homeRedCardValue').textContent = value;
+  }function updateAwayRedCardValue(value) {
+    document.getElementById('awayRedCardValue').textContent = value;
+  }function updateHomeGoalsValue(value) {
+    document.getElementById('homeGoalsValue').textContent = value;
+  }function updateAwayGoalsValue(value) {
+    document.getElementById('awayGoalsValue').textContent = value;
   }
   
   function init() {

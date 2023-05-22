@@ -5,7 +5,7 @@ import os
 from web.models import News
 from datetime import date
 
-RapidAPI_Key = "3447632fb2msh27c9a035d5686f2p14352fjsnb45025d241c2"
+RapidAPI_Key = "2e761ceebfmshfa7f126f0846910p127709jsn68b5181f44a8"
 
 def homepage(request, league_id):
     try:
