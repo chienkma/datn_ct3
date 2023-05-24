@@ -1,12 +1,12 @@
 {% extends "_base.html" %} {% block content %}
-<div class="bg-gray-200">
+<div class="bg-gray-200 dark:bg-slate-600">
   <h2 class="bg-red-400 w-full items-center rounded-md p-1 mb-3 text-xl">
     TIN MỚI NHẤT
   </h2>
-  <div class="">
+  <div class="h-[100%] mb-10">
     <ul>
       {% for news in news_list %}
-      <div class="">
+      <div class="mb-5 mx-5">
         <li>
           <img
             src="{{ news.image_url}}"
@@ -14,7 +14,7 @@
             width="200"
             height="200"
           />
-          <h3>
+          <h3 class="font-medium dark:text-slate-100">
             <a href="{% url 'news_detail' news.id %}">{{ news.title }}</a>
           </h3>
         </li>

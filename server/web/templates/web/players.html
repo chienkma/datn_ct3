@@ -5,9 +5,9 @@
       Danh sách cầu thủ: {{ players_data.0.statistics.0.league.name }}
     </h1>
   </div>
-  <div class="grid grid-cols-4 gap-4 mt-2 mb-10">
+  <div class="grid grid-cols-4 gap-4 mt-2 mb-2">
     {% for player in players_data %}
-    <div class="text-center bg-white p-4 shadow-md rounded-2xl mx-4">
+    <div class="text-center bg-white p-4 shadow-md rounded-2xl mx-4 dark:bg-slate-800 dark:text-gray-100">
       <div class="mt-2 flex justify-center items-center">
         <img
           class="w-32 h-32 object-cover rounded-full shadow-lg"
@@ -16,7 +16,9 @@
         />
       </div>
       <p class="mb-1">Tên: {{ player.player.name }}</p>
-      <p class="mb-1">Vị trí: {{ player.statistics.0.games.position }}</p>
+      <p class="mb-1">Vị trí: {% if player.statistics.0.games.position == 'Defender' %}Hậu vệ{% elif player.statistics.0.games.position == 'Attacker' %}Tiền Đạo{% elif player.statistics.0.games.position == 'Midfielder' %}Tiền vệ{% elif player.statistics.0.games.position == 'Goalkeeper' %}Thủ môn{% else %}{{ player.statistics.0.games.position }}{% endif %}</p>
+
+
       <p class="mb-1">Sinh nhật: {{ player.player.birth.date }}</p>
       <div class="flex items-center justify-center mt-2">
         <img

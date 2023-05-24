@@ -1,13 +1,18 @@
 {% extends '_base.html'%} {% block content %} {% include 'carousel.html' %}
-<div class="grid grid-cols-4 gap-x-4 gap-y-7 mt-5">
-  <div class="col-span-2 ">
+<div class=" w-full lg:grid lg:grid-cols-4 lg:gap-x-4 gap-y-7 mt-5">
+  <div class="w-full lg:col-span-2 ">
     <div
-      class="bg-red-400 rounded-md mb-3 p-1 w-full"
+      class=""
     >
+    <h2
+    class="sticky top-0  bg-red-400 w-full items-center font-medium rounded-md p-1 mb-1 text-[18px]"
+  >
+    BẢNG XẾP HẠNG
+  </h2>
       <button
         id="dropdownNavbarLink2"
         data-dropdown-toggle="dropdownNavbar2"
-        class="flex justify-center items-center bg-gra-400 pl-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+        class="flex justify-center items-center bg-gray-100 pl-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-black md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
       >
         GIẢI ĐẤU
         <svg
@@ -72,9 +77,9 @@
       </div>
     </div>
     <div>
-      <table class="bg-gray-100">
-        <thead class="bg-red-100">
-          <tr class="text-center gap-x-8">
+      <table class="bg-gray-100 dark:bg-gray-600 dark:text-slate-100 mx-auto w-full">
+        <thead class="bg-red-50 dark:bg-gray-700 dark:text-slate-100 ">
+          <tr class="text-center gap-x-8 text-black dark:text-slate-100 ">
             <th class="px-3 py-1">Vị Trí</th>
             <th class="px-3 py-2">Câu Lạc Bộ</th>
             <th class="px-3 py-2">ĐĐ</th>
@@ -120,28 +125,27 @@
       </table>
     </div>
   </div>
-  <!-- ... -->
   <div
-    class="col-span-2 bg-gray-200  overflow-y-auto max-h-[600px] overflow-hidden"
+    class="w-full lg:col-span-2 bg-gray-200 dark:bg-gray-600 overflow-y-auto max-h-[600px] overflow-hidden"
   >
     <h2
-      class="sticky top-0  bg-red-400 w-full items-center rounded-md p-1 mb-3 text-xl"
+      class="sticky top-0  bg-red-400 w-full items-center font-medium rounded-md p-1 mb-3 text-[18px]"
     >
       TIN MỚI NHẤT
     </h2>
-    <div class="">
+    <div class="bg-gray-200 dark:bg-gray-600 rounded-md">
       <ul>
         {% for news in news_list %}
-        <div class="">
+        <div class="mb-5">
           <li>
-            <img
+            <img class="rounded-md"
               src="{{ news.image_url}}"
               alt="{{ news.title }}"
               width="200"
               height="200"
             />
             <h3>
-              <a href="{% url 'news_detail' news.id %}">{{ news.title }}</a>
+              <a class="font-medium dark:text-slate-100" href="{% url 'news_detail' news.id %}">{{ news.title }}</a>
             </h3>
           </li>
         </div>
@@ -150,16 +154,16 @@
       </ul>
     </div>
   </div>
-  <div class="col-span-2 overflow-y-auto max-h-[600px] mx-auto w-full">
+  <div class=" lg:col-span-2 overflow-y-auto max-h-[600px] mx-auto w-full">
     {% if topscorers %}
     <h2
-      class="sticky top-0 bg-red-400 w-full items-center rounded-md p-1 mb-3 text-xl"
+      class="sticky top-0 bg-red-400 w-full items-center rounded-md font-medium p-1 mb-3 text-[18px]"
     >
       DANH SÁCH VUA PHÁ LƯỚI
     </h2>
     <table class="table-fixed">
       <thead>
-        <tr>
+        <tr class="font-medium dark:text-slate-100">
           <th class="px-4 py-2">Vận động viên</th>
           <th class="px-4 py-2">Tuổi</th>
           <th class="px-4 py-2">Quốc gia</th>
@@ -170,7 +174,7 @@
       <tbody>
         {% for topscorer in topscorers %}
         <tr class="text-center">
-          <td class="border-b px-4 py-2">
+          <td class="border-b px-4 py-2 dark:text-slate-100">
             <div class="flex items-center">
               <img
                 src="{{ topscorer.player.photo }}"
@@ -178,7 +182,7 @@
                 class="rounded-full w-8 h-8 mr-2"
               />
               <div>
-                <p class="font-bold">{{ topscorer.player.name }}</p>
+                <p class="font-medium">{{ topscorer.player.name }}</p>
                 <div class="flex items-center">
                   <img
                     src="{{ topscorer.statistics.0.team.logo }}"
@@ -190,12 +194,12 @@
               </div>
             </div>
           </td>
-          <td class="border-b px-4 py-2">{{ topscorer.player.age }}</td>
-          <td class="border-b px-4 py-2">{{ topscorer.player.nationality }}</td>
-          <td class="border-b px-4 py-2">
+          <td class="border-b px-4 py-2 dark:text-slate-100">{{ topscorer.player.age }}</td>
+          <td class="border-b px-4 py-2 dark:text-slate-100">{{ topscorer.player.nationality }}</td>
+          <td class="border-b px-4 py-2 dark:text-slate-100">
             {{ topscorer.statistics.0.goals.total }}
           </td>
-          <td class="border-b px-4 py-2">
+          <td class="border-b px-4 py-2 dark:text-slate-100">
             {{ topscorer.statistics.0.goals.assists }}
           </td>
         </tr>
@@ -203,16 +207,24 @@
       </tbody>
     </table>
     {% else %}
-    <p>No top scorers available.</p>
+    <div class=" lg:col-span-2 overflow-y-auto max-h-[600px] mx-auto w-full">
+      <h2
+      class="sticky top-0 bg-red-400 w-full items-center font-medium rounded-md p-1 mb-3 text-[18px] "
+    >
+      DANH SÁCH VUA PHÁ LƯỚI
+    </h2>
+    <p class="text-center dark:text-slate-100">API đã hết hạn truy cập</p>
+    </div>
+   
     {% endif %}
   </div>
-  <div class="col-span-2 overflow-y-auto max-h-[600px] mx-auto w-full mb-40">
-    <h2 class="sticky top-0 bg-red-400  font-medium  z-20 w-full items-center rounded-md p-1 mb-3 ">
+  <div class="lg:col-span-2 overflow-y-auto max-h-[600px] mx-auto w-full mb-40">
+    <h2 class="sticky top-0 bg-red-400  font-medium  z-20 w-full items-center text-[18px] rounded-md p-1 mb-3 ">
       TRỰC TIẾP
     </h2>
     <table class="w-full">
       <thead>
-        <tr>
+        <tr class="dark:text-slate-100">
           <th class="py-2">Giải đấu</th>
           <th class="py-2">Trận đấu</th>
           <th class="py-2">Số phút</th>
@@ -222,7 +234,7 @@
       <tbody>
         {% for fixture in fixtures %}
         <tr>
-          <td class="py-2 flex items-center justify-center">
+          <td class="py-2 flex items-center justify-center dark:text-slate-100">
             <img
               src="{{ fixture.league.logo }}"
               alt="{{ fixture.league.name }}"
@@ -230,7 +242,7 @@
             />
             {{ fixture.league.name }}
           </td>
-          <td class="py-2">
+          <td class="py-2 dark:text-slate-100">
             <div class="flex items-center">
               <img
                 src="{{ fixture.teams.home.logo }}"
@@ -251,10 +263,10 @@
             </div>
           </td>
 
-          <td class="py-2 text-center">
+          <td class="py-2 text-center dark:text-slate-100">
             {{ fixture.fixture.status.elapsed }}'
           </td>
-          <td class="py-2">
+          <td class="py-2 dark:text-slate-100">
             <a href="/predict/{{ fixture.fixture.id }}"
               ><button
                 class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"

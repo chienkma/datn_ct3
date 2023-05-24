@@ -5,7 +5,8 @@ import os
 from web.models import News
 from datetime import date
 
-RapidAPI_Key = "2e761ceebfmshfa7f126f0846910p127709jsn68b5181f44a8"
+RapidAPI_Key = "890e7119aamsh564b05f8bc48a80p1aa915jsn6c1e8035d087"
+
 
 def homepage(request, league_id):
     try:
@@ -16,7 +17,9 @@ def homepage(request, league_id):
     season = "2022"
     standings_url = f"https://api-football-beta.p.rapidapi.com/standings?season={season}&league={league_id}"
     topscorers_url = f"https://api-football-beta.p.rapidapi.com/players/topscorers?season={season}&league={league_id}"
-    fixtures_url = f"https://api-football-beta.p.rapidapi.com/fixtures?live=all&season=2022"
+    fixtures_url = (
+        f"https://api-football-beta.p.rapidapi.com/fixtures?live=all&season=2022"
+    )
 
     headers = {"X-RapidAPI-Key": RapidAPI_Key}
 
@@ -118,7 +121,7 @@ def predict_fixture(request, fixture_id):
         "home_teams_selected": fixture_data["teams"]["home"]["name"],
         "away_teams_selected": fixture_data["teams"]["away"]["name"],
         "home_goals": fixture_data["goals"]["home"],
-        "away_goals":fixture_data["goals"]["away"],
+        "away_goals": fixture_data["goals"]["away"],
     }
 
     return render(request, "web/predict.html", context)
@@ -146,28 +149,5 @@ def news_detail(request, pk):
     return render(request, "web/news_detail.html", context)
 
 
-def fixtures(request):
-    url = "https://api-football-beta.p.rapidapi.com/fixtures"
-    headers = {
-        "X-RapidAPI-Key": "YOUR_API_KEY",
-        "X-RapidAPI-Host": "api-football-beta.p.rapidapi.com",
-    }
-
-    start_date = datetime.now().date()
-    end_date = start_date + timedelta(days=7)
-
-    league_ids = [39, 61, 78, 135, 140]
-    status = "LIVE"
-
-    params = {
-        "date_from": start_date.strftime("%Y-%m-%d"),
-        "date_to": end_date.strftime("%Y-%m-%d"),
-        "league": ",".join(str(id) for id in league_ids),
-        "status": status,
-    }
-
-    response = requests.get(url, headers=headers, params=params)
-    fixtures_data = response.jso["response"]
-    context = {"fixtures_data": fixtures_data}
-
-    return render(request, "web/fixtures.html", context)
+def policy(request):
+    return render(request, "web/policy.html")
