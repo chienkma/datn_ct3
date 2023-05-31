@@ -3,7 +3,7 @@ import requests
 import json
 import os
 from web.models import News
-from datetime import date
+from datetime import datetime, timedelta
 
 RapidAPI_Key = "3447632fb2msh27c9a035d5686f2p14352fjsnb45025d241c2"
 
@@ -13,23 +13,27 @@ def homepage(request, league_id):
         league_id = int(league_id)
     except ValueError:
         league_id = 39
-
+    today = datetime.now().strftime("%Y-%m-%d")
+    end_date = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
     season = "2022"
     standings_url = f"https://api-football-beta.p.rapidapi.com/standings?season={season}&league={league_id}"
     topscorers_url = f"https://api-football-beta.p.rapidapi.com/players/topscorers?season={season}&league={league_id}"
     fixtures_url = (
-        f"https://api-football-beta.p.rapidapi.com/fixtures?live=all&season=2022"
+        f"https://api-football-beta.p.rapidapi.com/fixtures?live=all&season={season}"
     )
+    upComings_url = f"https://api-football-beta.p.rapidapi.com/fixtures?season={season}&league={league_id}&from={today}&to={end_date}&timezone=Asia/Ho_Chi_Minh"
 
     headers = {"X-RapidAPI-Key": RapidAPI_Key}
 
     standings_response = requests.get(standings_url, headers=headers)
     topscorers_response = requests.get(topscorers_url, headers=headers)
     fixtures_response = requests.get(fixtures_url, headers=headers)
+    upComings_response = requests.get(upComings_url, headers=headers)
 
     standings_data = standings_response.json()
     topscorers_data = topscorers_response.json()
     fixtures_data = fixtures_response.json()
+    upComings_data = upComings_response.json()
 
     if standings_data and standings_data.get("response"):
         standings = standings_data["response"][0]["league"]["standings"][0]
@@ -46,12 +50,18 @@ def homepage(request, league_id):
     else:
         fixtures = []
 
+    if upComings_data and upComings_data.get("response"):
+        upComings = upComings_data["response"]
+    else:
+        upComings = []
+
     news_list = News.objects.all()
 
     context = {
         "standings": standings,
         "topscorers": topscorers,
         "fixtures": fixtures,
+        "upComings": upComings,
         "selected_league": league_id,
         "news_list": news_list,
     }

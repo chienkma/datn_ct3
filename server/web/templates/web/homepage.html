@@ -1,4 +1,6 @@
-{% extends '_base.html'%} {% block content %} {% include 'carousel.html' %}
+{% extends '_base.html'%}
+ {% block content %}
+  {% include 'carousel.html' %}
 <div class=" w-full lg:grid lg:grid-cols-4 lg:gap-x-4 gap-y-7 mt-5">
   <div class="w-full lg:col-span-2 ">
     <div
@@ -283,6 +285,64 @@
         {% empty %}
         <tr>
           <td class="py-2 text-center dark:text-slate-100" colspan="3">Hiện không có trận đấu nào được diễn ra</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="lg:col-span-2 overflow-y-auto max-h-[600px] mx-auto w-full mb-40">
+    <h2 class="sticky top-0 bg-red-400  font-medium  z-20 w-full items-center text-[18px] rounded-md p-1 mb-3 ">
+      SẮP DIỄN RA
+    </h2>
+    <table class="w-full">
+      <thead>
+        <tr class="dark:text-slate-100">
+          <th class="py-2">Giải đấu</th>
+          <th class="py-2">Vòng đấu</th>
+          <th class="py-2">Trận đấu</th>
+          <th class="py-2">Thời gian</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for upComing in upComings %}
+        <tr>
+          <td class="py-2 flex items-center justify-center mt-3 dark:text-slate-100">
+            <img
+              src="{{ upComing.league.logo }}"
+              alt="{{ upComing.league.name }}"
+              class="w-8 h-8 mr-2"
+            />
+            {{ upComing.league.name }}
+          </td>
+          <td class="dark:text-slate-100 py-2 text-center">
+            {{upComing.league.round}}
+          </td>
+          <td class="py-2 dark:text-slate-100">
+            <div class="flex items-center">
+              <img
+                src="{{ upComing.teams.home.logo }}"
+                alt="{{ upComing.teams.home.name }}"
+                class="w-5 h-5 mr-2"
+              />
+              {{ upComing.teams.home.name }}
+            </div>
+            <div class="flex items-center mt-2">
+              <img
+                src="{{ upComing.teams.away.logo }}"
+                alt="{{ upComing.teams.away.name }}"
+                class="w-5 h-5 mr-2"
+              />
+              {{ upComing.teams.away.name }}
+            </div>
+          </td>
+
+          <td class="py-2 text-center dark:text-slate-100">
+            {{ upComing.fixture.date}}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td class="py-2 text-center dark:text-slate-100" colspan="3">Hiện không có trận đấu nào sắp diễn ra</td>
         </tr>
         {% endfor %}
       </tbody>

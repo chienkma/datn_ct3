@@ -1,11 +1,11 @@
 {% extends '_base.html'%} {% block content %}
-<div class="w-1/2 mx-auto mt-5 mb-10">
-  <h2 class="font-medium text-xl mb-3">{{ news.title }}</h2>
-  <p class="">{{ news.content }}</p>
+<div class="w-1/2 mx-auto -mt-10">
+  <h2 class="font-medium text-xl mt-10 mb-5 dark:text-slate-100">{{ news.title }}</h2>
+  <p class="dark:text-slate-100">{{ news.content }}</p>
   <img class="mx-auto mt-8" src="{{ news.image_url}}" alt="{{ news.title }}" />
   <div class="mt-5">
-    <p class="font-medium mt-8">Tác giả: {{ news.author }}</p>
-    <p class="font-medium">Ngày viết: {{ news.publish_date }}</p>
+    <p class="font-medium mt-10 dark:text-slate-100">Tác giả: {{ news.author }}</p>
+    <p class="font-medium dark:text-slate-100">Ngày viết: {{ news.publish_date }}</p>
   </div>
 </div>
 

@@ -34,7 +34,7 @@
           <td class="w-1/2 p-4">
             <div class="flex flex-col">
               <label class="label-predict text-[12px] text-gray-600 dark:text-white">Đội khách</label>
-              <select class="block py-2.5 text-[#000] px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-200 focus:outline-none focus:ring-0 focus:border-gray-200 peer" id="awayTeam" name="awayTeam" required>
+              <select class="block py-2.5 text-[#000] px-0 w-full text-sm dark:bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-200 focus:outline-none focus:ring-0 focus:border-gray-200 peer" id="awayTeam" name="awayTeam" required>
             
                 {% for team, index in away_teams.items %}
                   {% if team == away_teams_selected %}
@@ -201,7 +201,9 @@
               value="nb"
               type="radio"
             />
-            <span class="dark:text-slate-100">Naive Bayes</span>
+            <span class="dark:text-slate-100">Naive Bayes <br>
+              Độ chính xác: 63.20%
+            </span>
           </label>
         </div>
         <div class=" lg:mx-[150px]">
@@ -216,7 +218,10 @@
               value="lr"
               type="radio"
             />
-            <span  class="dark:text-slate-100">Logistical Regression One vs Rest</span>
+            <span  class="dark:text-slate-100">Logistical Regression One vs Rest
+              <br>
+              Độ chính xác: 65.73%
+            </span>
           </label>
         </div>
         <div >
@@ -232,7 +237,10 @@
               type="radio"
               checked
             />
-            <span  class="dark:text-slate-100">Random Forest</span>
+            <span  class="dark:text-slate-100">Random Forest
+              <br>
+              Độ chính xác: 64.02%
+            </span>
           </label>
         </div>
       </div>
@@ -347,7 +355,7 @@ function init() {
     var formData = predictionForm.serialize();
     console.log(formData);
 
-     M.toast({ html: "Processing.." });
+     {% comment %} M.toast({ html: "Processing.." }); {% endcomment %}
     $("#predictBtn").prop("disabled", true);
 
     $.get("/api/predict", formData, (res) => {
@@ -378,9 +386,9 @@ function init() {
 
         $("#resultContainer").show();
 
-   M.toast({ html: res.msg }); 
+   {% comment %} M.toast({ html: res.msg }); 
       } else {
- M.toast({ html: "Error: " + res.msg });
+ M.toast({ html: "Error: " + res.msg }); {% endcomment %}
       }
     });
   }
