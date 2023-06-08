@@ -5,7 +5,14 @@ import os
 from web.models import News
 from datetime import datetime, timedelta
 
-RapidAPI_Key = "3447632fb2msh27c9a035d5686f2p14352fjsnb45025d241c2"
+RapidAPI_Key = "890e7119aamsh564b05f8bc48a80p1aa915jsn6c1e8035d087"
+# RapidAPI_Key
+# 10390e0b6emsh1ed8839eaea9d6ap13dc42jsn0cd0d981d20b
+# 890e7119aamsh564b05f8bc48a80p1aa915jsn6c1e8035d087
+# 3447632fb2msh27c9a035d5686f2p14352fjsnb45025d241c2
+# 023dd78b62msh8af8ac27cad9a22p1fa4e6jsne3cc4ab352a9
+# d588852505mshc605681e18ef5a2p1e1595jsnc9e8d5c89413
+# 2e761ceebfmshfa7f126f0846910p127709jsn68b5181f44a8
 
 
 def homepage(request, league_id):

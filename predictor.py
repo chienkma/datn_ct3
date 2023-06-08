@@ -1,15 +1,13 @@
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from time import time
 from sklearn.metrics import f1_score
-from os import path, makedirs, walk
+from os import path, makedirs
 from joblib import dump, load
 import json
 
@@ -48,26 +46,6 @@ def model(clf, X_train, y_train, X_test, y_test):
     print("-" * 20)
     print("F1 Score:{}".format(f1))
     print("Accuracy:{}".format(acc))
-
-
-def derive_clean_sheet(src):
-    arr = []
-    n_rows = src.shape[0]
-
-    for data in range(n_rows):
-        # [HTHG, HTAG]
-        values = src.iloc[data].values
-        cs = [0, 0]
-
-        if values[0] == 0:
-            cs[1] = 1
-
-        if values[1] == 0:
-            cs[0] = 1
-
-        arr.append(cs)
-
-    return arr
 
 
 # Data gathering
@@ -137,13 +115,6 @@ away_encoded_mapping = dict(
 )
 data["away_encoded"] = away_encoded
 
-# Deriving Clean Sheet
-# htg_df = data[['HTHG', 'HTAG']]
-# cs_data = derive_clean_sheet(htg_df)
-# cs_df = pd.DataFrame(cs_data, columns=['HTCS', 'ATCS'])
-
-# data = pd.concat([data, cs_df], axis=1)
-
 data = data[cols_to_consider]
 
 print(data[data.isna().any(axis=1)])
@@ -156,15 +127,10 @@ Y = data["FTR"]
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
 
-svc_classifier = SVC(random_state=100, kernel="rbf")
 lr_classifier = LogisticRegression(multi_class="ovr", max_iter=500)
 nbClassifier = GaussianNB()
-dtClassifier = DecisionTreeClassifier()
 rfClassifier = RandomForestClassifier()
 
-# print("Support Vector Machine")
-# print("-" * 20)
-# model(svc_classifier, X_train, Y_train, X_test, Y_test)
 
 print()
 print("Logistic Regression one vs All Classifier")
@@ -176,10 +142,6 @@ print("Gaussain Naive Bayes Classifier")
 print("-" * 20)
 model(nbClassifier, X_train, Y_train, X_test, Y_test)
 
-# print()
-# print("Decision Tree Classifier")
-# print("-" * 20)
-# model(dtClassifier, X_train, Y_train, X_test, Y_test)
 
 print()
 print("Random Forest Classifier")
@@ -207,3 +169,10 @@ if shouldExport.strip().lower() == "y":
     json.dump(exportMetaData, exportMetaDataFile)
 
     print(f"Model(s) exported successfully to {exportedModelsPath}/")
+
+    lr_model = load("exportedModels/lr_classifier.model")
+    print(lr_model)
+    rf_model = load("exportedModels/rf_classifier.model")
+    print(rf_model)
+    nb_model = load("exportedModels/nb_classifier.model")
+    print(nb_model)

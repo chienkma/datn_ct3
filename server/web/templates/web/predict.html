@@ -1,8 +1,6 @@
 {% extends "_base.html" %}
 {% load static %}
-
 {% block content %}
-
 <div onload=init() class="container predict-div ">
   <div class="">
     <div class="card-image" style="background-size: cover; background-position: center;
@@ -355,7 +353,7 @@ function init() {
     var formData = predictionForm.serialize();
     console.log(formData);
 
-     {% comment %} M.toast({ html: "Processing.." }); {% endcomment %}
+      M.toast({ html: "Processing.." });
     $("#predictBtn").prop("disabled", true);
 
     $.get("/api/predict", formData, (res) => {
@@ -386,9 +384,9 @@ function init() {
 
         $("#resultContainer").show();
 
-   {% comment %} M.toast({ html: res.msg }); 
+  M.toast({ html: res.msg }); 
       } else {
- M.toast({ html: "Error: " + res.msg }); {% endcomment %}
+ M.toast({ html: "Error: " + res.msg });
       }
     });
   }
